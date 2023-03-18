@@ -30,3 +30,25 @@ const itemId = action.payload;
 ```
 
 For logic invloving slices, these have to be done externally. For example, I tried adding logic to avoid the amount becoming negative, but this had to be done within the `onClick` call instead
+
+## Async Thunk
+
+Provided with the redux toolkit, this allows us to access api data.
+Once we fetch it, it is returned in the form of a promise, so `fulfilled`, `pending` or `rejected`
+
+We have to create scenarios for each of the possible outcomes. For example, in `cartSlice.js`
+
+```js
+extraReducers: {
+    [getCartItems.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getCartItems.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.cartItems = action.payload;
+    },
+    [getCartItems.rejected]: (state) => {
+      state.isLoading = false;
+    },
+  },
+```
