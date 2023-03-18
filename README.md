@@ -1,4 +1,4 @@
-Some personal notes
+# Some personal notes
 
 ## Reducers
 
@@ -51,4 +51,51 @@ extraReducers: {
       state.isLoading = false;
     },
   },
+```
+
+### Advanced async thunk
+
+We can use `axios` to replicate the promise logic, making the code more streamlined
+
+We can also access `thunkAPI`, which logs a lot of useful features, including `getState`
+
+`getState` shows the entire state of the application, similar to `__STATE__` at TM
+
+The way to use this is like the following:
+
+```js
+async (thunkAPI) => {
+    try {
+        ....
+        console.log(thunkAPI.getState());
+        const res = await axios(url);
+    } catch (error) {}
+}
+```
+
+We can also access external reducers using `thunkAPI`. There is a `dispatch` feature which can do this. For example
+
+```js
+/* cartSlice.js */
+export const getCartItems = createAsyncThunk(
+    "cart/getCartItems", async(thunkAPI) => {
+        try {
+            ...
+            thunkAPI.dispatch(openModal())
+            ...
+        }
+    }
+)
+```
+
+This code would call the openModal action, despite the cartSlice not having access to it.
+
+We can also pass down error responses with `thunkAPI`.
+
+```js
+try {
+    ...
+} catch (error) {
+    return thunkAPI.rejectWithValue('something went horribly wrong!')
+}
 ```
