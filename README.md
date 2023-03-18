@@ -22,3 +22,11 @@ export const { clearCart } = cartSlice.actions;
 ```
 
 To use the action we have created, we can use `useDispatch`
+
+We can access the payload of the action, when we log it out it shows us the id of an item in this case. We can use this information to access and manipulate values
+
+```js
+const itemId = action.payload;
+```
+
+For logic invloving slices, these have to be done externally. For example, I tried adding logic to avoid the amount becoming negative, but this had to be done within the `onClick` call instead
