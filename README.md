@@ -14,3 +14,11 @@ const amount = useSelector((store) => store.cart.amount);
 ```
 
 ## Actions
+
+As we have imported redux toolkit, Immer is included. This allows us to create actions in one line:
+
+```js
+export const { clearCart } = cartSlice.actions;
+```
+
+To use the action we have created, we can use `useDispatch`
